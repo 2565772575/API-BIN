@@ -1,27 +1,39 @@
-# SpringBoot 项目初始模板
+## 项目背景
 
+API接口调用平台，帮助企业、个人统一开放接口，减少沟通成本，避免重复造轮子，为业务高效赋能。
 
-Java SpringBoot 项目初始模板，整合了常用框架和示例代码，大家可以在此基础上快速开发自己的项目。
+- 普通用户：注册登录，开通接口调用权限，使用接口。
 
-## 模板功能
+- 后台：调用统计和可视化分析接口调用情况，管理员发布接口、下线接口、新增接口。
 
-- Spring Boot 2.7.0（贼新）
-- Spring MVC
-- MySQL 驱动
-- MyBatis
-- MyBatis Plus
-- Spring Session Redis 分布式登录
-- Spring AOP
-- Apache Commons Lang3 工具类
-- Lombok 注解
-- Swagger + Knife4j 接口文档
-- Spring Boot 调试工具和项目处理器
-- 全局请求响应拦截器（记录日志）
-- 全局异常处理器
-- 自定义错误码
-- 封装通用响应类
-- 示例用户注册、登录、搜索功能
-- 示例单元测试类
-- 示例 SQL（用户表）
+主要功能：
 
-访问 localhost:7529/api/doc.html 就能在线调试接口了，不需要前端配合啦~
+- API接入
+- 防止攻击（安全性） 
+- 不能随便调用（限制、开通） 
+- 统计调用次数 
+- 计费 
+- 流量保护
+
+架构图：
+
+![img](https://cbj-1302486078.cos.ap-nanjing.myqcloud.com/img/1671091690956-6eb1c6d1-07b3-4c12-9257-28b99e63cc52.png)
+
+技术选型：
+
+后端：
+
+- Spring Boot
+- Spring Boot Starter(SDK开发)
+- Dubbo (RPC)
+- Nacos(注册中心)
+- Spring Cloud Gateway(网关、限流、日志实现)
+
+启动方式：
+
+后端：
+
+- api-backend：7529端口，后端接口管理（上传、下线、用户登录）http://localhost:7529/api/doc.html
+- api-gateway：8090端口，网关
+- api-interface：8123端口，提供各种接口服务（可以有很多个且分布在各个服务器）。这里的tests有个发送请求的跑通流程的测试用例。
+- api-client-sdgk：客户端SDK，无端口，发送请求到8090端口，由网关进行转发到后端的api-interface
